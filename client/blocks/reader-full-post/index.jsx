@@ -385,7 +385,9 @@ const ConnectedFullPostView = connect(
 			is_external: isExternal
 		} = ownProps.post;
 
-		const props = {};
+		const props = {
+			referral: ownProps.referral
+		};
 
 		if ( ! isExternal && siteId ) {
 			props.site = getSite( state, siteId );
@@ -422,7 +424,8 @@ export default class FullPostFluxContainer extends React.Component {
 		}
 
 		return {
-			post
+			post,
+			referral: props.referral
 		};
 	}
 
@@ -446,7 +449,8 @@ export default class FullPostFluxContainer extends React.Component {
 		return this.state.post
 			? <ConnectedFullPostView
 					onClose={ this.props.onClose }
-					post={ this.state.post } />
+					post={ this.state.post }
+					referral={ this.props.referral } />
 			: null;
 	}
 }
