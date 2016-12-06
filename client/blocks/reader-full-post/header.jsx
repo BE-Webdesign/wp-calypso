@@ -16,7 +16,6 @@ import Gridicon from 'components/gridicon';
 import { isDiscoverPost } from 'reader/discover/helper';
 
 const ReaderFullPostHeader = ( { post, referralPost } ) => {
-
 	const handlePermalinkClick = ( { } ) => {
 		recordPermalinkClick( 'full_post_title', post );
 	};
