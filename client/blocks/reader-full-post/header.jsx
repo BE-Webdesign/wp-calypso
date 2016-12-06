@@ -13,8 +13,10 @@ import { recordPermalinkClick } from 'reader/stats';
 import PostTime from 'reader/post-time';
 import ReaderFullPostHeaderTags from './header-tags';
 import Gridicon from 'components/gridicon';
+import { isDiscoverPost } from 'reader/discover/helper';
 
-const ReaderFullPostHeader = ( { post } ) => {
+const ReaderFullPostHeader = ( { post, referralPost } ) => {
+
 	const handlePermalinkClick = ( { } ) => {
 		recordPermalinkClick( 'full_post_title', post );
 	};
@@ -28,12 +30,14 @@ const ReaderFullPostHeader = ( { post } ) => {
 		classes[ 'is-missing-title' ] = true;
 	}
 
+	const externalHref = isDiscoverPost( referralPost ) ? referralPost.URL : post.URL;
+
 	/* eslint-disable react/jsx-no-target-blank */
 	return (
 		<div className={ classNames( classes ) }>
 			{ post.title
 				? <h1 className="reader-full-post__header-title" onClick={ handlePermalinkClick }>
-					<ExternalLink className="reader-full-post__header-title-link" href={ post.URL } target="_blank" icon={ false }>
+					<ExternalLink className="reader-full-post__header-title-link" href={ externalHref } target="_blank" icon={ false }>
 						{ post.title }
 					</ExternalLink>
 				</h1>
@@ -43,7 +47,7 @@ const ReaderFullPostHeader = ( { post } ) => {
 					? <span className="reader-full-post__header-date">
 						<a className="reader-full-post__header-date-link"
 							onClick={ recordDateClick }
-							href={ post.URL }
+							href={ externalHref }
 							target="_blank"
 							rel="noopener noreferrer">
 							<PostTime date={ post.date } />
@@ -62,7 +66,8 @@ const ReaderFullPostHeader = ( { post } ) => {
 };
 
 ReaderFullPostHeader.propTypes = {
-	post: React.PropTypes.object.isRequired
+	post: React.PropTypes.object.isRequired,
+	referralPost: React.PropTypes.object
 };
 
 export default ReaderFullPostHeader;
