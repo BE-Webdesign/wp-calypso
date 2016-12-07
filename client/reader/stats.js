@@ -27,7 +27,7 @@ export function recordPermalinkClick( where, post ) {
 		reader_actions: 'visited_post_permalink',
 		reader_permalink_source: where
 	} );
-	recordGaEvent( 'Clicked Post Permalink', where )
+	recordGaEvent( 'Clicked Post Permalink', where );
 	const trackEvent = 'calypso_reader_permalink_click';
 	const args = {
 		source: where
