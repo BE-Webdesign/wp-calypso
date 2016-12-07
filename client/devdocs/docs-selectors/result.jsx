@@ -25,35 +25,31 @@ export default function DocsSelectorsResult( { url, name, description, tags, exp
 				{ ! url && name }
 			</h1>
 			<p>{ description || <em>No description available</em> }</p>
+			<div className="docs-selectors__result-list">
 			{ paramTags.length > 0 && (
-				<table className="docs-selectors__result-arguments">
-					<thead>
-						<tr>
-							<th colSpan="2">
-								<span className="docs-selectors__result-label">Arguments</span>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						{ paramTags.map( ( tag ) => (
-							<tr key={ tag.name }>
-								<th>
-									<strong>{ tag.name }</strong>
-									<DocsSelectorsParamType { ...tag.type } />
-								</th>
-								<td>{ tag.description }</td>
-							</tr>
-						) ) }
-					</tbody>
-				</table>
+				<div className="docs-selectors__result-arguments">
+					<span className="docs-selectors__result-label">Arguments</span>
+					{ paramTags.map( ( tag ) => (
+						<div className="docs-selectors__result-arguments-content" key={ tag.name }>
+							<div className="docs-selectors__result-arguments-name">
+								<strong>{ tag.name }</strong>
+								<DocsSelectorsParamType { ...tag.type } />
+							</div>
+							<div className="docs-selectors__result-arguments-description">
+								{ tag.description }
+							</div>
+						</div>
+					) ) }
+				</div>
 			) }
 			{ returnTag && (
 				<div className="docs-selectors__result-return">
 					<span className="docs-selectors__result-label">Returns</span>
-					<p>{ returnTag.description }</p>
 					<DocsSelectorsParamType { ...returnTag.type } />
+					<p>{ returnTag.description }</p>
 				</div>
 			) }
+			</div>
 		</Card>
 	);
 }
